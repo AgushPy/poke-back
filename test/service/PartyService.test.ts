@@ -1,5 +1,6 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { getRepositoryToken } from "@nestjs/typeorm";
+import { Party } from "src/entity/Party";
 import { Pokemon } from "src/entity/Pokemon";
 import { BattleStatus } from "src/enums/BattleStatus";
 import { PartyService } from "src/service/PartyService";
@@ -20,14 +21,14 @@ describe('PartyService',()=>{
             providers: [
                 PartyService,
                 {
-                    provide: getRepositoryToken(Pokemon),
+                    provide: getRepositoryToken(Party),
                     useFactory: repositoryMockFactory,
                 }
             ]
         }).compile();
 
         partyService = module.get<PartyService>(PartyService);
-        repositoryMock = module.get(getRepositoryToken(Pokemon));
+        repositoryMock = module.get(getRepositoryToken(Party));
     })
 
     it('battle_withBetterPokemonPlayer_ReturnPlayerWin', () => {
